@@ -8,8 +8,24 @@ $( ".send-tcs-ga-event" ).submit(function( event ) {
   }
 });
 
-$(".ga-track-event").click(function(){
-  ga('send', 'event', $(this).data('ga-event-category'), $(this).data('ga-event-action'), $(this).data('ga-event-label'));
+$(".ga-track-event").click(function(event) {
+
+  if ( $(this).is('a') ){
+    event.preventDefault();
+    var redirectUrl = $(this).attr("href");
+    ga('send', 'event', {
+      'event-category': $(this).data('ga-event-category'),
+      'event-action': $(this).data('ga-event-action'),
+      'event-label': $(this).data('ga-event-label'),
+      'hitCallback': function () {
+        alert("callback")
+        window.location.href = redirectUrl;
+      }
+    });
+  } else {
+    ga('send', 'event', $(this).data('ga-event-category'), $(this).data('ga-event-action'), $(this).data('ga-event-label'));
+  }
+
 });
 
 function gaWithCallback(send, event, category, action, label, func) {
