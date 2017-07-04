@@ -18,7 +18,6 @@ $(".ga-track-event").click(function(event) {
       'event-action': $(this).data('ga-event-action'),
       'event-label': $(this).data('ga-event-label'),
       'hitCallback': function () {
-        alert("callback")
         window.location.href = redirectUrl;
       }
     });
